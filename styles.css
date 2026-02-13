@@ -1,0 +1,202 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+    font-family: Arial, sans-serif;
+}
+
+/* Collage background */
+#collage {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Scrambled images */
+.photo {
+    position: absolute;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease;
+}
+
+.photo:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+    z-index: 999;
+}
+
+/* Center content */
+.center-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    text-align: center;
+    background: rgba(0,0,0,0.75);
+    padding: 40px 60px;
+    border-radius: 20px;
+    color: white;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 14px 28px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Yes button */
+#yesBtn {
+    background: #ff2e63;
+    color: white;
+    transform: translateX(-45px);
+}
+
+/* No button */
+#noBtn {
+    background: white;
+    color: black;
+    position: fixed;   /* Always fixed */
+}
+
+/* Heart explosion */
+.heart {
+    position: absolute;
+    font-size: 36px;
+    animation: explode 1.6s ease-out forwards;
+}
+
+@keyframes explode {
+    from {
+        transform: scale(0);
+        opacity: 1;
+    }
+    to {
+        transform: translate(
+            calc(400px * var(--x)),
+            calc(400px * var(--y))
+        ) scale(2);
+        opacity: 0;
+    }
+}
+/* ENVELOPE OVERLAY */
+#envelope {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(145deg, #d8bb8c, #caa874);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5000;
+    perspective: 1200px;
+    overflow: hidden;
+}
+
+/* Envelope base */
+.envelope-body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #d8bb8c, #caa874);
+}
+
+/* Flap */
+.envelope-flap {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    top: 0;
+    background: linear-gradient(to bottom, #caa874, #b99363);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform 1.3s ease-in-out;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+/* Seal */
+.seal {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 3;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    animation: breathe 2.5s ease-in-out infinite;
+}
+
+.seal img {
+    width: 240px;  /* 130% larger */
+    filter: drop-shadow(0 18px 25px rgba(0,0,0,0.7));
+}
+
+
+/* Subtle breathing animation */
+@keyframes breathe {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.05); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* Hover glow */
+.seal:hover {
+    filter: brightness(1.1);
+}
+
+
+/* Opening animation class */
+.open-flap {
+    transform: rotateX(-140deg);
+}
+
+/* Final photo popup */
+#finalPhoto {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    max-width: 60vw;
+    max-height: 70vh;
+    border-radius: 20px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.7);
+    opacity: 0;
+    z-index: 4000;
+    transition: all 0.6s ease;
+	pointer-events: one; 
+}
+
+#finalPhoto.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+/* White glow behind final image */
+#glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 800px;              /* bigger */
+    height: 800px;             /* bigger */
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, 
+        rgba(255,255,255,0.95) 0%, 
+        rgba(255,200,220,0.6) 30%, 
+        rgba(255,150,180,0.3) 50%, 
+        rgba(255,0,100,0.1) 70%, 
+        rgba(255,0,100,0) 90%);
+    filter: blur(80px);        /* stronger blur */
+    opacity: 0;
+    z-index: 3999;
+    transition: opacity 0.6s ease;
+	pointer-events: none;
+}
+
